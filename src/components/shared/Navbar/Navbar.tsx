@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Logo from "./../Logo/Logo";
 import { TbWorld } from "react-icons/tb";
@@ -6,8 +7,19 @@ import { FaUserCircle } from "react-icons/fa";
 import DatePicker from "./DatePicker/DatePicker";
 
 const Navbar: React.FC = () => {
+  const [isDatePickerOpen, setIsDatePickerOpen] =
+    React.useState<boolean>(false);
+
+  const checkInHandler = (e) => {
+    e.stopPropagation();
+    setIsDatePickerOpen(true);
+  };
+
   return (
-    <nav className="py-4 bg-white z-50 border-b">
+    <nav
+      onClick={() => setIsDatePickerOpen(false)}
+      className="py-4 bg-white z-50 border-b"
+    >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div>
           <Logo />
@@ -34,7 +46,11 @@ const Navbar: React.FC = () => {
       </div>
       <div>
         {/* Render DatePicker correctly here */}
-        <DatePicker />
+        <DatePicker
+          checkInHandler={checkInHandler}
+          isDatePickerOpen={isDatePickerOpen}
+          setIsDatePickerOpen={setIsDatePickerOpen}
+        />
       </div>
     </nav>
   );
