@@ -9,21 +9,23 @@ interface DatePickerProps {
   setIsDatePickerOpen: Dispatch<SetStateAction<boolean>>;
   isDatePickerOpen: boolean;
   checkInHandler: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-
+  obj: {
+    handleFilterByDate: () => void;
+    setStartDate: Dispatch<SetStateAction<number>>;
+    setEndDate: Dispatch<SetStateAction<number>>;
+    startDate: number;
+    endDate: number;
+  };
 }
 const DatePicker = ({
   setIsDatePickerOpen,
   isDatePickerOpen,
   checkInHandler,
+  obj,
 }: DatePickerProps) => {
-  const [startDate, setStartDate] = useState<number>(0);
-  const [endDate, setEndDate] = useState<number>(0);
   const [isActive, setIsActive] = useState<string>("");
-
-  const handleFilterByDate = () => {
-    console.log(startDate);
-    console.log(endDate);
-  };
+  const { handleFilterByDate, setStartDate, setEndDate, startDate, endDate } =
+    obj;
 
   const handleClick = (value: string) => {
     if (value === "checkIn") {
@@ -62,7 +64,7 @@ const DatePicker = ({
           >
             <p className="font-medium">Check in</p>
             <p className="text-gray-600">
-            {!startDate ? "Add dates" : formatDate(startDate)}
+              {!startDate ? "Add dates" : formatDate(startDate)}
             </p>
           </button>
 

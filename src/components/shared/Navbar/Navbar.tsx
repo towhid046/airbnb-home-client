@@ -6,7 +6,7 @@ import { MdMenu } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import DatePicker from "./DatePicker/DatePicker";
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC = ({ obj }) => {
   const [isDatePickerOpen, setIsDatePickerOpen] =
     React.useState<boolean>(false);
 
@@ -47,6 +47,7 @@ const Navbar: React.FC = () => {
       <div>
         {/* Render DatePicker correctly here */}
         <DatePicker
+          obj={obj}
           checkInHandler={checkInHandler}
           isDatePickerOpen={isDatePickerOpen}
           setIsDatePickerOpen={setIsDatePickerOpen}

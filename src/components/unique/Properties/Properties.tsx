@@ -14,14 +14,11 @@ export interface PropertyProps {
     image: string;
   };
 }
-const Properties = async (): Promise<JSX.Element> => {
-  const res = await fetch(`${process.env.NEXT_API_BASE_URL}/properties`);
+interface PropertiesProps {
+  properties:PropertyProps[]
+}
+const Properties = ({properties}:PropertiesProps) => {
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch properties");
-  }
-
-  const properties: PropertyProps[] = await res.json();
 
   return (
     <section className="container mx-auto px-4 py-6">

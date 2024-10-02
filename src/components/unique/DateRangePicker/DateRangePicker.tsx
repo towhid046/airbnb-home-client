@@ -2,14 +2,17 @@
 "use client";
 import React, { useState, Dispatch, SetStateAction } from "react";
 import { DateRange, RangeKeyDict } from "react-date-range";
-import "react-date-range/dist/styles.css"; 
+import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { addDays } from "date-fns";
 interface DateRangePickerProps {
   setStartDate: Dispatch<SetStateAction<number>>;
   setEndDate: Dispatch<SetStateAction<number>>;
 }
-const DateRangePicker = ({ setStartDate, setEndDate }:DateRangePickerProps) => {
+const DateRangePicker = ({
+  setStartDate,
+  setEndDate,
+}: DateRangePickerProps) => {
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -17,7 +20,6 @@ const DateRangePicker = ({ setStartDate, setEndDate }:DateRangePickerProps) => {
       key: "selection",
     },
   ]);
-
 
   const handleSelect = (ranges: RangeKeyDict) => {
     const { selection } = ranges;
