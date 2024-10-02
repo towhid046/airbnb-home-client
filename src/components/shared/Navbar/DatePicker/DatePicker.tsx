@@ -1,14 +1,21 @@
 "use client";
 import DateRangePicker from "@/components/unique/DateRangePicker/DateRangePicker";
-import * as React from "react";
+import React, { Dispatch, MouseEvent, SetStateAction } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { useState } from "react";
+import { formatDate } from "@/utils/formatDate";
 
-export default function DatePicker({
+interface DatePickerProps {
+  setIsDatePickerOpen: Dispatch<SetStateAction<boolean>>;
+  isDatePickerOpen: boolean;
+  checkInHandler: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+
+}
+const DatePicker = ({
   setIsDatePickerOpen,
   isDatePickerOpen,
   checkInHandler,
-}) {
+}: DatePickerProps) => {
   const [startDate, setStartDate] = useState<number>(0);
   const [endDate, setEndDate] = useState<number>(0);
   const [isActive, setIsActive] = useState<string>("");
@@ -54,7 +61,9 @@ export default function DatePicker({
             } text-[14px] px-7 py-3 hover:bg-[#EBEBEB]  transition duration-500 rounded-full cursor-pointer relative`}
           >
             <p className="font-medium">Check in</p>
-            <p className="text-gray-600">Add dates</p>
+            <p className="text-gray-600">
+            {!startDate ? "Add dates" : formatDate(startDate)}
+            </p>
           </button>
 
           <div className="border-l border-gray-300 h-8 my-auto"></div>
@@ -69,8 +78,11 @@ export default function DatePicker({
             }  text-[14px] px-7 py-3 hover:bg-[#EBEBEB] transition duration-500 rounded-full cursor-pointer relative`}
           >
             <p className="font-medium">Check out</p>
-            <p className="text-gray-600">Add dates</p>
+            <p className="text-gray-600">
+              {!endDate ? "Add dates" : formatDate(endDate)}
+            </p>
           </button>
+
           <div className="border-l border-gray-300 h-8 my-auto"></div>
           <div className="text-[14px] pl-7 pr-4 py-3 flex-grow hover:bg-[#EBEBEB] transition duration-500 rounded-full cursor-pointer flex items-center justify-between relative">
             <div>
@@ -109,4 +121,5 @@ export default function DatePicker({
       )}
     </>
   );
-}
+};
+export default DatePicker;

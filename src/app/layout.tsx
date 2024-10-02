@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <header className="top-0 sticky ">
+        <header className="top-0 sticky z-20">
           <Navbar />
         </header>
         <main className="min-h-screen">{children}</main>
