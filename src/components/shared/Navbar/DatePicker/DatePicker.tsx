@@ -4,54 +4,75 @@ import React, { Dispatch, MouseEvent, SetStateAction } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { useState } from "react";
 import { formatDate } from "@/utils/formatDate";
+import SearchDestination from "./../../../unique/SearchDestination/SearchDestination";
 
 interface DatePickerProps {
   setIsDatePickerOpen: Dispatch<SetStateAction<boolean>>;
   isDatePickerOpen: boolean;
+  setIsSearchDestinationOpen: Dispatch<SetStateAction<boolean>>;
+  isSearchDestinationOpen: boolean;
   checkInHandler: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   obj: {
     handleFilterByDate: () => void;
     setStartDate: Dispatch<SetStateAction<number>>;
     setEndDate: Dispatch<SetStateAction<number>>;
+    setSearchText:Dispatch<SetStateAction<string>>;
     startDate: number;
     endDate: number;
+    searchText:string;
   };
 }
 const DatePicker = ({
+  setIsSearchDestinationOpen,
+  isSearchDestinationOpen,
   setIsDatePickerOpen,
   isDatePickerOpen,
   checkInHandler,
   obj,
 }: DatePickerProps) => {
   const [isActive, setIsActive] = useState<string>("");
-  const { handleFilterByDate, setStartDate, setEndDate, startDate, endDate } =
+  const { handleFilterByDate, setStartDate, setEndDate, startDate, endDate, searchText, setSearchText } =
     obj;
 
   const handleClick = (value: string) => {
     if (value === "checkIn") {
       setIsActive("checkIn");
-    } else {
+    }
+    if (value=== "checkOut") {
       setIsActive("checkOut");
+    }
+    if (value=== "destination") {
+      setIsActive("destination");
     }
   };
 
   return (
     <>
       <div
-        onClick={() => setIsDatePickerOpen(false)}
-        className={`flex justify-center max-w-4xl mx-auto px-4 mt-5 mb-2 `}
+        onClick={() => {
+          setIsDatePickerOpen(false);
+        }}
+        className={`flex justify-center max-w-4xl mx-auto px-4 mt-5 mb-2 relative `}
       >
         <div
           className={`${
-            isDatePickerOpen ? "bg-[#EBEBfB] " : "bg-white"
+            (isDatePickerOpen || isSearchDestinationOpen)  ? "bg-[#EBEBfB] " : "bg-white"
           } border   w-full rounded-full flex shadow-md justify-between`}
         >
-          <div className="text-[14px] px-7 py-3 flex-grow hover:bg-[#EBEBEB] transition duration-500 rounded-full cursor-pointer relative">
-            <h6 className="font-medium">Where</h6>
-            <p className="text-gray-600">Search Destination</p>
-          </div>
+          {/* Search Destination */}
+          <SearchDestination
+            isSearchDestinationOpen={isSearchDestinationOpen}
+            setIsSearchDestinationOpen={setIsSearchDestinationOpen}
+            handleClick={handleClick}
+            isActive={isActive}
+            setIsDatePickerOpen={setIsDatePickerOpen}
+            setSearchText={setSearchText}
+            searchText={searchText}
+          />
 
           <div className="border-l border-gray-300 h-8 my-auto"></div>
+
+          {/* Check In button */}
 
           <button
             onClick={(e) => {
@@ -70,6 +91,7 @@ const DatePicker = ({
 
           <div className="border-l border-gray-300 h-8 my-auto"></div>
 
+          {/* Check out button */}
           <button
             onClick={(e) => {
               handleClick("checkOut");
@@ -94,11 +116,11 @@ const DatePicker = ({
             <button
               onClick={handleFilterByDate}
               className={` ${
-                isDatePickerOpen ? "py-3 px-4" : "w-12 h-12"
+                (isDatePickerOpen || isSearchDestinationOpen) ? "py-3 px-4" : "w-12 h-12"
               } bg-[#FF385C] rounded-full hover:bg-[#E21A5F] gap-2 text-white transition duration-300 flex items-center justify-center`}
             >
               <IoSearchOutline className="text-xl" />
-              {isDatePickerOpen && <p className="text-white">Search</p>}
+              {(isDatePickerOpen || isSearchDestinationOpen) && <p className="text-white">Search</p>}
             </button>
           </div>
         </div>

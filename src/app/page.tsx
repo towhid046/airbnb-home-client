@@ -12,6 +12,9 @@ const Home = (): JSX.Element => {
   const [startDate, setStartDate] = useState<number>(0);
   const [endDate, setEndDate] = useState<number>(0);
   const [isFilter, setIsFilter] = useState<boolean>(false);
+  const [searchText, setSearchText] = useState<string>("");
+
+  console.log(searchText);
 
   const handleFilterByDate = () => {
     if (startDate && endDate) {
@@ -26,6 +29,8 @@ const Home = (): JSX.Element => {
     setEndDate,
     startDate,
     endDate,
+    searchText,
+    setSearchText,
   };
 
   useEffect(() => {
@@ -36,7 +41,6 @@ const Home = (): JSX.Element => {
           `http://localhost:5000/properties?startDate=${startDate}&endDate=${endDate}`
         );
         setProperties(res.data);
-        console.log(res.data);
       } catch (error) {
         console.error(error);
       } finally {

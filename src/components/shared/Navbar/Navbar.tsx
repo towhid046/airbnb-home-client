@@ -9,15 +9,17 @@ import DatePicker from "./DatePicker/DatePicker";
 const Navbar: React.FC = ({ obj }) => {
   const [isDatePickerOpen, setIsDatePickerOpen] =
     React.useState<boolean>(false);
+  const [isSearchDestinationOpen, setIsSearchDestinationOpen] = React.useState<boolean>(false);
 
   const checkInHandler = (e) => {
     e.stopPropagation();
     setIsDatePickerOpen(true);
+    setIsSearchDestinationOpen(false)
   };
 
   return (
     <nav
-      onClick={() => setIsDatePickerOpen(false)}
+      onClick={() => {setIsDatePickerOpen(false);setIsSearchDestinationOpen(false)}}
       className="py-4 bg-white z-50 border-b"
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
@@ -51,6 +53,8 @@ const Navbar: React.FC = ({ obj }) => {
           checkInHandler={checkInHandler}
           isDatePickerOpen={isDatePickerOpen}
           setIsDatePickerOpen={setIsDatePickerOpen}
+          isSearchDestinationOpen={isSearchDestinationOpen}
+          setIsSearchDestinationOpen={setIsSearchDestinationOpen}
         />
       </div>
     </nav>
