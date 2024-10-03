@@ -21,7 +21,7 @@ const Properties = ({properties}:PropertiesProps) => {
 
 
   return (
-    <section className="container mx-auto px-4 py-6">
+    <section className="container mx-auto p-4">
       <div className="grid xl:grid-cols-4 lg:grid-cols-3 gap-6 md:grid-cols-2 grid-cols-1">
         {properties?.map((property, index) => (
           <Property key={index} property={property} />

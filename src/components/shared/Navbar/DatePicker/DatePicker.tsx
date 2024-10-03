@@ -17,6 +17,7 @@ interface DatePickerProps {
     setStartDate: Dispatch<SetStateAction<number>>;
     setEndDate: Dispatch<SetStateAction<number>>;
     setSearchText:Dispatch<SetStateAction<string>>;
+    setCategory:Dispatch<SetStateAction<string>>;
     startDate: number;
     endDate: number;
     searchText:string;
@@ -31,7 +32,7 @@ const DatePicker = ({
   obj,
 }: DatePickerProps) => {
   const [isActive, setIsActive] = useState<string>("");
-  const { handleFilterByDate, setStartDate, setEndDate, startDate, endDate, searchText, setSearchText } =
+  const { handleFilterByDate, setStartDate, setEndDate, startDate, endDate, searchText, setSearchText, setCategory } =
     obj;
 
   const handleClick = (value: string) => {
@@ -68,6 +69,9 @@ const DatePicker = ({
             setIsDatePickerOpen={setIsDatePickerOpen}
             setSearchText={setSearchText}
             searchText={searchText}
+            setCategory={setCategory}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
           />
 
           <div className="border-l border-gray-300 h-8 my-auto"></div>
@@ -78,6 +82,8 @@ const DatePicker = ({
             onClick={(e) => {
               handleClick("checkIn");
               checkInHandler(e);
+              setCategory('')
+              setSearchText('')
             }}
             className={`${
               isActive === "checkIn" && "bg-white hover:bg-white"
@@ -96,6 +102,8 @@ const DatePicker = ({
             onClick={(e) => {
               handleClick("checkOut");
               checkInHandler(e);
+              setCategory('')
+              setSearchText('')
             }}
             className={`${
               isActive === "checkOut" && "bg-white hover:bg-white"
