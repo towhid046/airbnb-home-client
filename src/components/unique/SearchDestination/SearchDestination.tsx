@@ -78,7 +78,11 @@ const SearchDestination = ({
       {isSearchDestinationOpen && (
         <div className="fixed w-full min-h-screen top-24">
           <ul className="flex flex-col shadow-xl bg-white p-5 gap-2 text-lg text-gray-600 rounded-2xl absolute top-[84px] left-4">
-            {!locations.length && <p className="px-4">Location Not Found</p>}
+            {isLoading ? (
+              <p className="px-4">Loading...</p>
+            ) : (
+              !locations.length && <p className="px-4">Location Not Found</p>
+            )}
             {locations.slice(0, 5).map((location: string, index: number) => (
               <li
                 className="cursor-pointer hover:text-black transition duration-300 flex items-center gap-5 px-4 py-2 hover:bg-[#F4F4F4] rounded-lg"
