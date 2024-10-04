@@ -37,7 +37,7 @@ const SearchDestination = ({
       setIsLoading(true);
       try {
         const res = await axios.get(
-          `http://localhost:5000/locations?search=${searchText}`
+          `https://airbnb-replica-server.vercel.app/locations?search=${searchText}`
         );
         setLocations(res.data);
       } catch (error) {

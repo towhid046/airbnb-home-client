@@ -9,9 +9,10 @@ import ImageComponent from "./ImageComponent/ImageComponent";
 
 interface PropertyComponentProps {
   property: PropertyProps;
+  isTaxInclude:boolean,
 }
 
-const Property = ({ property }: PropertyComponentProps) => {
+const Property = ({ property, isTaxInclude }: PropertyComponentProps) => {
   const {
     images,
     location,
@@ -64,7 +65,16 @@ const Property = ({ property }: PropertyComponentProps) => {
           {formatDate(startDate)} - {formatDate(endDate)}
         </p>
         <p className="mt-2">
-          <strong>${price} </strong>night
+          { isTaxInclude ?  
+          <>
+          <strong>${price * 3} </strong>
+          <span>total before taxes</span>
+          </>
+           : 
+           <>
+           <strong>${price} </strong>
+           <span>night</span>
+           </>}
         </p>
       </div>
     </div>
