@@ -6,7 +6,11 @@ import {
   MdOutlineKeyboardArrowLeft,
 } from "react-icons/md";
 
-const ImageComponent = ({ images }: string[]) => {
+interface ImageComponentProps {
+  images: string[];
+}
+
+const ImageComponent = ({ images }: ImageComponentProps) => {
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const handleNextImg = () => {
     if (activeImgIndex < images.length - 1) {

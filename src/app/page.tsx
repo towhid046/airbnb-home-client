@@ -5,17 +5,6 @@ import axios from "axios";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import FilterIcons from "./../components/unique/FilterIcons/FilterIcons";
 
-// Define the types for Navbar props
-interface NavbarProps {
-  handleFilterByDate: () => void;
-  setStartDate: React.Dispatch<React.SetStateAction<number>>;
-  setEndDate: React.Dispatch<React.SetStateAction<number>>;
-  startDate: number;
-  endDate: number;
-  searchText: string;
-  setSearchText: React.Dispatch<React.SetStateAction<string>>;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
-}
 
 const Home = (): JSX.Element => {
   const [properties, setProperties] = useState<PropertyProps[]>([]);
@@ -27,16 +16,14 @@ const Home = (): JSX.Element => {
   const [category, setCategory] = useState<string>("");
   const [isTaxInclude, setIsTaxInclude] = useState<boolean>(false);
 
-  // Function to handle filter by date and toggle isFilter state
-  const handleFilterByDate = (): void => {
+  const handleFilterByDate = () => {
     if ((startDate && endDate) || searchText) {
       setIsLoading(true);
       setIsFilter((prev) => !prev);
     }
   };
 
-  // Define the `obj` to be passed to Navbar with appropriate typing
-  const obj: NavbarProps = {
+  const obj = {
     handleFilterByDate,
     setStartDate,
     setEndDate,
@@ -48,7 +35,7 @@ const Home = (): JSX.Element => {
   };
 
   useEffect(() => {
-    const loadProperties = async (): Promise<void> => {
+    const loadProperties = async () => {
       setIsLoading(true);
       try {
         const res = await axios.get<PropertyProps[]>(
@@ -62,9 +49,8 @@ const Home = (): JSX.Element => {
       }
     };
 
-    // Load properties only if the filter state changes or on initial load
     loadProperties();
-  }, [isFilter, searchText, category, startDate, endDate]);
+  }, [isFilter, searchText, category]);
 
   return (
     <>
@@ -85,10 +71,7 @@ const Home = (): JSX.Element => {
         </div>
       )}
       <section>
-        <Properties
-          isTaxInclude={isTaxInclude}
-          properties={properties}
-        />
+        <Properties isTaxInclude={isTaxInclude} properties={properties} />
       </section>
     </>
   );

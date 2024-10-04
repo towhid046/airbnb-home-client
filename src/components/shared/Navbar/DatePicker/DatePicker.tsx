@@ -1,6 +1,6 @@
 "use client";
 import DateRangePicker from "@/components/unique/DateRangePicker/DateRangePicker";
-import React, { Dispatch, MouseEvent, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { useState } from "react";
 import { formatDate } from "@/utils/formatDate";
@@ -11,7 +11,7 @@ interface DatePickerProps {
   isDatePickerOpen: boolean;
   setIsSearchDestinationOpen: Dispatch<SetStateAction<boolean>>;
   isSearchDestinationOpen: boolean;
-  checkInHandler: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  checkInHandler: () => void;
   obj: {
     handleFilterByDate: () => void;
     setStartDate: Dispatch<SetStateAction<number>>;
@@ -80,8 +80,9 @@ const DatePicker = ({
 
           <button
             onClick={(e) => {
+              e.stopPropagation()
               handleClick("checkIn");
-              checkInHandler(e);
+              checkInHandler();
               setCategory('')
               setSearchText('')
             }}
@@ -100,8 +101,9 @@ const DatePicker = ({
           {/* Check out button */}
           <button
             onClick={(e) => {
+              e.stopPropagation()
               handleClick("checkOut");
-              checkInHandler(e);
+              checkInHandler();
               setCategory('')
               setSearchText('')
             }}

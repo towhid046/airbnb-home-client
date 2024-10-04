@@ -1,5 +1,3 @@
-"use client";
-
 import axios from "axios";
 import { useEffect, useState, SetStateAction, Dispatch } from "react";
 import { SlLocationPin } from "react-icons/sl";
@@ -36,7 +34,8 @@ const SearchDestination = ({
     const loadLocation = async () => {
       setIsLoading(true);
       try {
-        const res = await axios.get(
+        // Type the response as an array of strings
+        const res = await axios.get<string[]>(
           `https://airbnb-replica-server.vercel.app/locations?search=${searchText}`
         );
         setLocations(res.data);
@@ -49,7 +48,7 @@ const SearchDestination = ({
     loadLocation();
   }, [searchText]);
 
-  const handleSearchDestination = (e) => {
+  const handleSearchDestination = (e: React.MouseEvent) => {
     e.stopPropagation();
     handleClick("destination");
     setIsSearchDestinationOpen(true);
@@ -58,6 +57,7 @@ const SearchDestination = ({
     setStartDate(0);
     setEndDate(0);
   };
+
   return (
     <>
       <div
@@ -91,7 +91,7 @@ const SearchDestination = ({
                 <span className="p-3 text-xl rounded-lg bg-[#F4F4F4]">
                   <SlLocationPin />
                 </span>
-                <span onClick={(e) => setSearchText(e.target?.innerText)}>
+                <span onClick={(e) => setSearchText(e.currentTarget.innerText)}>
                   {location}
                 </span>
               </li>
@@ -102,4 +102,5 @@ const SearchDestination = ({
     </>
   );
 };
+
 export default SearchDestination;

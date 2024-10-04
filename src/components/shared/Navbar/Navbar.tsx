@@ -6,20 +6,37 @@ import { MdMenu } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import DatePicker from "./DatePicker/DatePicker";
 
-const Navbar: React.FC = ({ obj }) => {
+interface NavbarProps {
+  handleFilterByDate: () => void;
+  setStartDate: React.Dispatch<React.SetStateAction<number>>;
+  setEndDate: React.Dispatch<React.SetStateAction<number>>;
+  startDate: number;
+  endDate: number;
+  searchText: string;
+  setSearchText: React.Dispatch<React.SetStateAction<string>>;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+}
+
+interface NavProps {
+  obj: NavbarProps;
+}
+const Navbar = ({ obj }: NavProps) => {
   const [isDatePickerOpen, setIsDatePickerOpen] =
     React.useState<boolean>(false);
-  const [isSearchDestinationOpen, setIsSearchDestinationOpen] = React.useState<boolean>(false);
+  const [isSearchDestinationOpen, setIsSearchDestinationOpen] =
+    React.useState<boolean>(false);
 
-  const checkInHandler = (e) => {
-    e.stopPropagation();
+  const checkInHandler = () => {
     setIsDatePickerOpen(true);
-    setIsSearchDestinationOpen(false)
+    setIsSearchDestinationOpen(false);
   };
 
   return (
     <nav
-      onClick={() => {setIsDatePickerOpen(false);setIsSearchDestinationOpen(false)}}
+      onClick={() => {
+        setIsDatePickerOpen(false);
+        setIsSearchDestinationOpen(false);
+      }}
       className="py-4 bg-white z-50 border-b"
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
