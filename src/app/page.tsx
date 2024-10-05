@@ -69,7 +69,7 @@ const Home = (): JSX.Element => {
         <div className="text-xl font-bold py-12 flex items-center justify-center">
           Loading...
         </div>
-      )}
+    )}
       <section>
         <Properties isTaxInclude={isTaxInclude} properties={properties} />
       </section>
