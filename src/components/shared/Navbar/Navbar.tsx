@@ -37,7 +37,7 @@ const Navbar = ({ obj }: NavProps) => {
         setIsDatePickerOpen(false);
         setIsSearchDestinationOpen(false);
       }}
-      className="py-4 bg-white z-50 border-b"
+      className="py-4 bg-white z-40 border-b"
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div>

@@ -1,6 +1,7 @@
 "use client";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { useState, Dispatch, SetStateAction } from "react";
+import FilterButton from "./../FilterButton/FilterButton";
 
 // Define a type for the category items
 interface Category {
@@ -36,6 +37,7 @@ const FilterIcons = ({
   isTaxInclude,
 }: FilterIconsProps) => {
   const [activeCategory, setActiveCategory] = useState<number>(0);
+  
 
   const handleCategory = (category: string, index: number) => {
     setActiveCategory(index);
@@ -69,7 +71,8 @@ const FilterIcons = ({
             <p className="text-gray-600 text-[14px]">{category.title}</p>
           </li>
         ))}
-        <li>
+        <li className='flex items-center gap-5'>
+          <FilterButton />
           <button
             onClick={() => setIsTaxInclude(!isTaxInclude)}
             className={`border py-2.5 px-4 rounded-xl hover:border-gray-700 transition duration-300 flex items-center gap-2`}
