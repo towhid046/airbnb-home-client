@@ -39,7 +39,7 @@ const Home = (): JSX.Element => {
       setIsLoading(true);
       try {
         const res = await axios.get<PropertyProps[]>(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/properties?startDate=${startDate}&endDate=${endDate}&search=${searchText}&category=${category}`
+          `https://airbnb-replica-server.vercel.app/properties?startDate=${startDate}&endDate=${endDate}&search=${searchText}&category=${category}`
         );
         setProperties(res.data);
       } catch (error) {

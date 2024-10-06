@@ -44,7 +44,7 @@ const FilterModel = ({ setIsFilterOpen, setProperties }: SetFilterProps) => {
   const filterCount = async (type: string) => {
     setIsLoading(true)
     try {
-      const res = await axios.get<PropertyProps[]>(`${process.env.NEXT_PUBLIC_SERVER_URL}/filter-properties?minPrice=${minPrice}&maxPrice=${maxPrice}&category=${propertyType}&amenities=${amenities}&bookingOptions=${bookingOptions}&hostLanguages=${hostLanguages}`)
+      const res = await axios.get<PropertyProps[]>(`https://airbnb-replica-server.vercel.app/filter-properties?minPrice=${minPrice}&maxPrice=${maxPrice}&category=${propertyType}&amenities=${amenities}&bookingOptions=${bookingOptions}&hostLanguages=${hostLanguages}`)
       if (type === 'count') {
         setPropertiesLength(res?.data?.length)
       }

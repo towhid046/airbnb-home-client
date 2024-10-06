@@ -36,7 +36,7 @@ const SearchDestination = ({
       try {
         // Type the response as an array of strings
         const res = await axios.get<string[]>(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/locations?search=${searchText}`
+          `https://airbnb-replica-server.vercel.app/locations?search=${searchText}`
         );
         setLocations(res.data);
       } catch (error) {
