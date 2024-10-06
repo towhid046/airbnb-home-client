@@ -2,3 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.modal-content {
+    background-color: white;
+    width: 80%;
+    max-width: 500px;
+    height: 80%;
+    overflow-y: auto; /* Enable scroll inside modal */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }

@@ -53,7 +53,7 @@ const FilterIcons = ({
         <li
           onClick={() => handleCategory("", 0)}
           className={` ${
-            activeCategory === 0 ? "border-gray-200" : "border-white"
+            activeCategory === 0 ? "border-gray-700" : "border-white"
           } flex flex-col cursor-pointer border-b-2 pb-2.5  hover:border-gray-200 transition duration-300  items-center justify-center gap-1.5 text-center`}
         >
           <figure className="text-xl">🌍</figure>
@@ -64,7 +64,7 @@ const FilterIcons = ({
             onClick={() => handleCategory(category.title, index + 1)}
             key={category.id}
             className={` ${
-              activeCategory === index + 1 ? "border-gray-200" : "border-white"
+              activeCategory === index + 1 ? "border-gray-700" : "border-white"
             } flex flex-col cursor-pointer border-b-2 pb-2.5  hover:border-gray-200 transition duration-300  items-center justify-center gap-1.5 text-center`}
           >
             <figure className="text-xl">{category.icon}</figure>

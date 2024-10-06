@@ -1,9 +1,21 @@
 'use client';
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { RiFilterOffLine } from "react-icons/ri";
 import FilterModel from "../FilteredModel/FilterModel";
 const FilterButton = () => {
     const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+    useEffect(() => {
+      if (isFilterOpen) {
+        document.body.classList.add('overflow-hidden');
+      } else {
+        document.body.classList.remove('overflow-hidden');
+      }
+  
+      // Cleanup to remove the class when the modal closes
+      return () => {
+        document.body.classList.remove('overflow-hidden');
+      };
+    }, [isFilterOpen]);
 
   return (
     <>
