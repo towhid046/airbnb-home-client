@@ -64,6 +64,7 @@ const Home = (): JSX.Element => {
         setSearchText={setSearchText}
         setStartDate={setStartDate}
         setEndDate={setEndDate}
+        setProperties={setProperties}
       />
       {isLoading && (
         <div className="text-xl font-bold py-12 flex items-center justify-center">

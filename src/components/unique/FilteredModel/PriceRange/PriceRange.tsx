@@ -1,13 +1,17 @@
-'use client'
-import React, { useState } from 'react'
-
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import { Dispatch, SetStateAction } from "react";
+interface PriceRangeProps {
+    min: number
+    max: number;
+    minPrice: number;
+    maxPrice: number;
+    setMinPrice: Dispatch<SetStateAction<number>>;
+    setMaxPrice: Dispatch<SetStateAction<number>>;
+}
 
-const PriceRange = () => {
-    // Initialize the state with the range type
-    const [minPrice, setMinPrice] = useState<number>(50);
-    const [maxPrice, setMaxPrice] = useState<number>(200);
+const PriceRange = ({ maxPrice, minPrice, setMaxPrice, setMinPrice, min, max }: PriceRangeProps) => {
+
 
     // Event handler for when the slider value changes
     const handleSliderChange = (value: number | number[]): void => {
@@ -29,9 +33,9 @@ const PriceRange = () => {
             <div>
                 <Slider
                     range
-                    min={50}
-                    max={200}
-                    defaultValue={[50, 200]}
+                    min={min}
+                    max={max}
+                    defaultValue={[75, 250]}
                     onChange={handleSliderChange}
                     allowCross={false}
                     className="w-full"
@@ -51,7 +55,7 @@ const PriceRange = () => {
                         Maximum
                     </p>
                     <span className="border w-20 h-10 rounded-full flex justify-center items-center">
-                        ${maxPrice} {maxPrice === 200 && "+"}
+                        ${maxPrice} {maxPrice === 250 && "+"}
                     </span>
                 </div>
             </div>

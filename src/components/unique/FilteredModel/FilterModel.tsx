@@ -1,23 +1,80 @@
-
-import { Dispatch, SetStateAction, } from "react";
+'use client'
+import { Dispatch, SetStateAction, useEffect, useState, } from "react";
 import { RxCross2 } from "react-icons/rx";
 import Amenities from './Amenities/Amenities';
 import PropertyTypes from './PropertyTypes/PropertyTypes'
 import BookingOptions from "./BookingOptions/BookingOptions";
 import HostLanguages from "./HostLanguages/HostLanguages";
 import PriceRange from "./PriceRange/PriceRange";
+import { PropertyProps } from "../Properties/Properties";
+import axios from "axios";
 
 // Define types for the state and slider values
 
 interface SetFilterProps {
   setIsFilterOpen: Dispatch<SetStateAction<boolean>>;
+  setProperties: Dispatch<SetStateAction<PropertyProps[]>>;
 }
 
-const FilterModel = ({ setIsFilterOpen }: SetFilterProps) => {
+const FilterModel = ({ setIsFilterOpen, setProperties }: SetFilterProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [propertiesLength, setPropertiesLength] = useState<number>(0)
+
+  // Initialize state for Price range
+  const [minPrice, setMinPrice] = useState<number>(75);
+  const [maxPrice, setMaxPrice] = useState<number>(250);
+
+  // State for Booking Options
+  const [propertyType, setPropertyType] = useState<string>('')
+
+  // State for Amenities
+  const [amenities, setAmenities] = useState<string[]>([])
+
+  // State for Booking Options
+  const [bookingOptions, setBookingOptions] = useState<string[]>([])
 
 
+  // State for host languages
+  const [hostLanguages, setHostLanguages] = useState<string[]>([])
+
+  // const min and max price;
+  const [min,setMin] = useState<number>(75)
+  const [max,setMax] = useState<number>(250)
+
+  const filterCount = async (type: string) => {
+    setIsLoading(true)
+    try {
+      const res = await axios.get<PropertyProps[]>(`${process.env.NEXT_PUBLIC_SERVER_URL}/filter-properties?minPrice=${minPrice}&maxPrice=${maxPrice}&category=${propertyType}&amenities=${amenities}&bookingOptions=${bookingOptions}&hostLanguages=${hostLanguages}`)
+      if (type === 'count') {
+        setPropertiesLength(res?.data?.length)
+      }
+      if (type === 'data') {
+        setProperties(res.data)
+      }
+    } catch (error) {
+      console.error(error)
+
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
 
+  useEffect(() => {
+    filterCount('count')
+  }, [minPrice, maxPrice, propertyType, amenities, bookingOptions, hostLanguages])
+
+
+  const handelClearAll = () => {
+    setMinPrice(75)
+    setMaxPrice(250)
+    setPropertyType('')
+    setAmenities([])
+    setBookingOptions([])
+    setHostLanguages([])
+    setMin(75)
+    setMax(250)
+  }
 
   return (
     <section
@@ -41,26 +98,30 @@ const FilterModel = ({ setIsFilterOpen }: SetFilterProps) => {
           </header>
           <div className="px-5 space-y-6">
             {/* price range */}
-            <PriceRange />
+            <PriceRange min={min} max={max} maxPrice={maxPrice} minPrice={minPrice} setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} />
             <hr />
             {/* Amenities */}
-            <Amenities />
+            <Amenities amenities={amenities} setAmenities={setAmenities} />
 
             {/* Booking Options */}
-            <BookingOptions />
+            <BookingOptions bookingOptions={bookingOptions} setBookingOptions={setBookingOptions} />
             <hr />
 
             {/* Property type */}
-            <PropertyTypes />
+            <PropertyTypes setPropertyType={setPropertyType} propertyType={propertyType} />
             <hr />
             {/* Host languages */}
-            <HostLanguages />
-
-
+            <HostLanguages hostLanguages={hostLanguages} setHostLanguages={setHostLanguages} />
           </div>
           <footer className='flex justify-between bg-white py-4 px-5 border-t sticky bottom-0 z-50 '>
-            <button className="py-2.5 px-4 rounded-lg hover:bg-gray-100 transition duration-300  font-semibold">Clear All</button>
-            <button className="py-2.5 px-4 rounded-lg  font-semibold text-white bg-[#222222] hover:bg-black transition duration-300">Show 100 + places</button>
+            <button
+              onClick={handelClearAll}
+              className="py-2.5 px-4 rounded-lg hover:bg-gray-100 transition duration-300  font-semibold">Clear All</button>
+            <button onClick={() => {
+              filterCount('data');
+              setIsFilterOpen(false)
+            }
+            } className="py-2.5 px-4 rounded-lg  font-semibold text-white bg-[#222222] hover:bg-black transition duration-300">{isLoading ? 'Loading...' : `Show ${propertiesLength} places`}</button>
           </footer>
         </div>
       </div>

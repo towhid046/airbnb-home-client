@@ -1,21 +1,26 @@
 'use client';
-import {useState, useEffect} from 'react'
+import { useState, useEffect, SetStateAction, Dispatch } from 'react'
 import { RiFilterOffLine } from "react-icons/ri";
 import FilterModel from "../FilteredModel/FilterModel";
-const FilterButton = () => {
-    const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
-    useEffect(() => {
-      if (isFilterOpen) {
-        document.body.classList.add('overflow-hidden');
-      } else {
-        document.body.classList.remove('overflow-hidden');
-      }
-  
-      // Cleanup to remove the class when the modal closes
-      return () => {
-        document.body.classList.remove('overflow-hidden');
-      };
-    }, [isFilterOpen]);
+import { PropertyProps } from './../Properties/Properties';
+interface FilterButtonProps {
+  setProperties: Dispatch<SetStateAction<PropertyProps[]>>;
+
+}
+const FilterButton = ({ setProperties }: FilterButtonProps) => {
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+  useEffect(() => {
+    if (isFilterOpen) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    // Cleanup to remove the class when the modal closes
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
+  }, [isFilterOpen]);
 
   return (
     <>
@@ -27,7 +32,7 @@ const FilterButton = () => {
         <span>Filter</span>
       </button>
 
-      {isFilterOpen && <FilterModel setIsFilterOpen={setIsFilterOpen} />}
+      {isFilterOpen && <FilterModel setIsFilterOpen={setIsFilterOpen} setProperties={setProperties} />}
     </>
   );
 };

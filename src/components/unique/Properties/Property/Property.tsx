@@ -17,7 +17,7 @@ const Property = ({ property, isTaxInclude }: PropertyComponentProps) => {
     images,
     location,
     price,
-    author: { name, image },
+    author,
     rating,
     endDate,
     startDate,
@@ -40,8 +40,8 @@ const Property = ({ property, isTaxInclude }: PropertyComponentProps) => {
             <Image
               width={100}
               height={100}
-              src={image}
-              alt={name}
+              src={author?.image}
+              alt={author?.name}
               className="rounded-full w-10 h-10 ml-2"
             />
           </div>
@@ -59,7 +59,7 @@ const Property = ({ property, isTaxInclude }: PropertyComponentProps) => {
             {rating}
           </p>
         </div>
-        <p className="text-gray-500 text-[15px]">Stay with {name}</p>
+        <p className="text-gray-500 text-[15px]">Stay with {author?.name}</p>
         <p className="text-gray-500 text-[15px]">
           {/* Display date range */}
           {formatDate(startDate)} - {formatDate(endDate)}

@@ -2,6 +2,7 @@
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { useState, Dispatch, SetStateAction } from "react";
 import FilterButton from "./../FilterButton/FilterButton";
+import { PropertyProps } from "../Properties/Properties";
 
 // Define a type for the category items
 interface Category {
@@ -17,6 +18,7 @@ interface FilterIconsProps {
   setStartDate: Dispatch<SetStateAction<number>>;
   setEndDate: Dispatch<SetStateAction<number>>;
   setIsTaxInclude: Dispatch<SetStateAction<boolean>>;
+  setProperties:Dispatch<SetStateAction<PropertyProps[]>>;
   isTaxInclude: boolean;
 }
 
@@ -35,6 +37,7 @@ const FilterIcons = ({
   setEndDate,
   setIsTaxInclude,
   isTaxInclude,
+  setProperties,
 }: FilterIconsProps) => {
   const [activeCategory, setActiveCategory] = useState<number>(0);
   
@@ -72,7 +75,7 @@ const FilterIcons = ({
           </li>
         ))}
         <li className='flex items-center gap-5'>
-          <FilterButton />
+          <FilterButton setProperties={setProperties} />
           <button
             onClick={() => setIsTaxInclude(!isTaxInclude)}
             className={`border py-2.5 px-4 rounded-xl hover:border-gray-700 transition duration-300 flex items-center gap-2`}
